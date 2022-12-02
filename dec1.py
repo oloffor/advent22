@@ -1,46 +1,72 @@
 
 def read_file_num():
     f=open('input.txt', 'r')
+    inter  = f.readlines()
     finallist = []
     templist = []
     k = 0
-    for line in f:
-        
-        if line.strip():
+    
+    for line in inter:  
+       
+        if line == '\n':
+            
             finallist.append(templist)
-            #print(finallist)
             k +=1
-            
+            templist = []
         elif templist == []:
-            templist[0] = int(line)
+            
+            templist.append(int(line))
         else:
-           templist.append(int(line))
+           
+            templist.append(int(line))
             
             
-    finallist.append(templist)
+    
     
     return finallist
 
 
 
-#print(read_file_num())
+
 
 def sum (listOfLists):
     largest = 0
+    second = 0
+    third = 0
     for place in listOfLists:
-        
+        print(third)
+        print(second)
+        print(largest)
         summ = 0
         if place is int:
             if place > largest:
+                third = second 
+                second = largest
                 largest = place
+                
+            
+            elif (place > second and place < largest):
+                third = second 
+                second = place
+            
+            elif (place > third and place < second):
+                third = place
                     
         else:
             
             for index in place:
                 summ += index
                 if summ > largest:
+                    third = second
+                    second = largest
                     largest = summ
-                    
-    return largest
+                elif (summ > second and summ < largest):
+                    third = second 
+                    second = summ
+            
+                elif (summ > third and summ < second):
+                    third = summ
+    total = (largest + second + third)               
+    return total
                     
 print(sum(read_file_num()))
